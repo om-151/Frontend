@@ -36,8 +36,6 @@ const Login = () => {
   const navigate = useNavigate()
   const { storeTokenInLs, API } = useAuth()
 
-  const URL = `${API}/api/auth/login`
-
   const handleInput = (e) => {
     let name = e.target.name;
     let value = e.target.value;
@@ -51,7 +49,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch(URL, {
+      const response = await fetch(`${API}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

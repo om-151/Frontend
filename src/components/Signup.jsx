@@ -20,8 +20,6 @@ const Signup = () => {
   const navigate = useNavigate()
   const { storeTokenInLs, API } = useAuth()
 
-  const URL = `${API}/api/auth/register`
-
   const handleInput = (e) => {
     let name = e.target.name
     let value = e.target.value
@@ -36,24 +34,24 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-        const response = await fetch(URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user),
-        });
+      const response = await fetch(`${API}/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
 
-        if (response.ok) {
-            const data = await response.json();
-            storeTokenInLs(data.token); // Update the token in Auth context
-            navigate("/"); // Redirect to home or another page
-        } else {
-            toast.error("Signup failed. Please try again.");
-        }
-    } catch (error) {
-        console.error("Error during signup:", error);
+      if (response.ok) {
+        const data = await response.json();
+        storeTokenInLs(data.token); // Update the token in Auth context
+        navigate("/"); // Redirect to home or another page
+      } else {
         toast.error("Signup failed. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      toast.error("Signup failed. Please try again.");
     }
   }
 

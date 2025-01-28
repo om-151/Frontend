@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(true)
     const authorizationToken = `Bearer ${token}`
 
-    const API = import.meta.env.VITE_APP_API_URL
+    const API = 'https://backend-1-tmyv.onrender.com'
 
     const auth = getAuth();
 

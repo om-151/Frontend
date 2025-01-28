@@ -19,7 +19,7 @@ const Shop = () => {
     const fetchAllProducts = async () => {
         try {
             setLoading(true);
-            const response = await fetch(`${API}/api/auth/products`);
+            const response = await fetch(`https://backend-1-tmyv.onrender.com/api/auth/products`);
             const data = await response.json();
 
             if (response.ok) {

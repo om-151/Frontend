@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useAuth } from "../store/Auth"
+// import { useAuth } from "../store/Auth"
 
 const Contact = () => {
     useEffect(() => {
@@ -16,14 +16,14 @@ const Contact = () => {
     const handlechange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
-    const { API } = useAuth()
+    // const { API } = useAuth()
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`${API}/api/form/contact`, {
+            const response = await fetch(`https://backend-1-tmyv.onrender.com/api/form/contact`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),

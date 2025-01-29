@@ -80,8 +80,8 @@ const Shop = () => {
     if (loading) {
         return <>
             <div className="flex flex-col items-center justify-center min-h-screen">
-                <img src={Loader} alt="Loader" height={300} width={300}/>
-                <p className="text-3xl font-bold my-10">Loading products...</p>;
+                <img src={Loader} alt="Loader" height={300} width={300} />
+                <p className="text-3xl font-bold my-10">Loading products...</p>
             </div>
         </>
     }

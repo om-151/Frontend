@@ -223,7 +223,7 @@ const Signup = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-fuchsia-600 text-white py-2 rounded-md shadow hover:bg-fuchsia-700 transition flex items-center justify-center"
+              className="w-full bg-purple-600 text-white py-2 rounded-md shadow hover:bg-purple-700 transition flex items-center justify-center"
               disabled={loading}
             >
               {loading ? (

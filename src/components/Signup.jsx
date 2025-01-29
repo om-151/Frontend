@@ -30,8 +30,11 @@ const Signup = () => {
     })
   }
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
     try {
       const response = await fetch(`${API}/api/auth/register`, {
@@ -45,6 +48,7 @@ const Signup = () => {
       if (response.ok) {
         const data = await response.json();
         storeTokenInLs(data.token); // Update the token in Auth context
+        toast.success("Registration Successful")
         navigate("/"); // Redirect to home or another page
       } else {
         toast.error("Signup failed. Please try again.");
@@ -53,6 +57,7 @@ const Signup = () => {
       console.error("Error during signup:", error);
       toast.error("Signup failed. Please try again.");
     }
+    setLoading(false);
   }
 
   const [showPassword, setShowPassword] = useState(false);
@@ -221,9 +226,14 @@ const Signup = () => {
             </div>
             <button
               type="submit"
-              className="w-full bg-purple-600 text-white py-2 rounded-md shadow hover:bg-purple-700 transition"
+              className="w-full bg-fuchsia-600 text-white py-2 rounded-md shadow hover:bg-fuchsia-700 transition flex items-center justify-center"
+              disabled={loading}
             >
-              Sign Up
+              {loading ? (
+                <div className="h-6 w-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+              ) : (
+                "Sign up"
+              )}
             </button>
           </form>
           <div className="text-center mt-4">

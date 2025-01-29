@@ -67,7 +67,7 @@ const Login = () => {
       if (response.ok) {
         storeTokenInLs(res_data.token)
         setUser({ email: "", password: "" })
-        toast.success("Login successful")
+        toast.success("Login Successful")
         navigate("/")
       } else {
         toast.error(
@@ -204,27 +204,17 @@ const Login = () => {
                 </button>
               </div>
             </div>
-            {/* <button
-              type="submit"
-              className="w-full bg-fuchsia-600 text-white py-2 rounded-md shadow hover:bg-fuchsia-700 transition"
-            >
-              Login
-            </button> */}
             <button
               type="submit"
               className="w-full bg-fuchsia-600 text-white py-2 rounded-md shadow hover:bg-fuchsia-700 transition flex items-center justify-center"
               disabled={loading}
             >
               {loading ? (
-                <svg className="animate-spin h-5 w-5 mr-2 text-white" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-                </svg>
+                <div className="h-6 w-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
               ) : (
                 "Login"
               )}
             </button>
-
           </form>
           <div className="text-center mt-4">
             <p>Don't have an account ?

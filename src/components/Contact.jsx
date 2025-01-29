@@ -18,10 +18,11 @@ const Contact = () => {
     }
     const { API } = useAuth()
 
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setLoading(true)
         try {
             const response = await fetch(`${API}/api/form/contact`, {
                 method: "POST",
@@ -50,6 +51,7 @@ const Contact = () => {
                 message: "",
             });
         }
+        setLoading(false);
     }
 
     return (
@@ -113,9 +115,14 @@ const Contact = () => {
                     </div>
                     <button
                         type="submit"
-                        className="w-full bg-blue-500 text-white font-medium py-3 rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        className="w-full bg-blue-500 text-white py-3 rounded-lg shadow-md hover:bg-blue-600 transition flex items-center justify-center font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        disabled={loading}
                     >
-                        Send Message
+                        {loading ? (
+                            <div className="h-6 w-6 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                        ) : (
+                            "Send Message"
+                        )}
                     </button>
                 </form>
             </div>

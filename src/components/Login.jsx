@@ -46,8 +46,11 @@ const Login = () => {
     });
   };
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoading(true)
     try {
       const response = await fetch(`${API}/api/auth/login`, {
         method: "POST",
@@ -73,8 +76,10 @@ const Login = () => {
         console.log("Invalid Credentials");
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      toast.error("Something went wrong. Please try again.");
     }
+    setLoading(false);
   }
 
   const [showPassword, setShowPassword] = useState(false);
@@ -199,12 +204,27 @@ const Login = () => {
                 </button>
               </div>
             </div>
-            <button
+            {/* <button
               type="submit"
               className="w-full bg-fuchsia-600 text-white py-2 rounded-md shadow hover:bg-fuchsia-700 transition"
             >
               Login
+            </button> */}
+            <button
+              type="submit"
+              className="w-full bg-fuchsia-600 text-white py-2 rounded-md shadow hover:bg-fuchsia-700 transition flex items-center justify-center"
+              disabled={loading}
+            >
+              {loading ? (
+                <svg className="animate-spin h-5 w-5 mr-2 text-white" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                </svg>
+              ) : (
+                "Login"
+              )}
             </button>
+
           </form>
           <div className="text-center mt-4">
             <p>Don't have an account ?

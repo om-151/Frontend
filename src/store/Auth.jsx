@@ -19,11 +19,9 @@ export const AuthProvider = ({ children }) => {
     }
 
     let isLoggedIn = !!token
-    console.log("isLoggedIn", isLoggedIn);
 
     useEffect(() => {
         isLoggedIn = !!token;
-        console.log("isLoggedIn updated: ", isLoggedIn);
     }, [token]);
 
     useEffect(() => {
@@ -31,21 +29,19 @@ export const AuthProvider = ({ children }) => {
         if (tokenFromStorage) {
             setToken(tokenFromStorage);
         }
-        setIsLoading(false); // Set loading to false after checking token
+        setIsLoading(false);
     }, []);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 user.getIdToken().then((token) => {
-                    localStorage.setItem('token', token); // Store the token in local storage
-                    setToken(token); // Update the token in state
-                    console.log("User is signed in:", user.uid);
+                    localStorage.setItem('token', token);
+                    setToken(token);
                 });
             } else {
-                localStorage.removeItem('token'); // Clear the token on logout
-                setToken(""); // Reset token in state
-                console.log("User is signed out");
+                localStorage.removeItem('token');
+                setToken("");
             }
         });
 
@@ -55,7 +51,6 @@ export const AuthProvider = ({ children }) => {
     const LogoutUser = () => {
         setToken("")
         localStorage.removeItem("token");
-        console.log("User logged out");
     }
 
     const userAuthentication = async () => {
@@ -70,15 +65,12 @@ export const AuthProvider = ({ children }) => {
 
             if (response.ok) {
                 const data = await response.json()
-                console.log("user data ", data.userData);
                 setUser(data.userData)
                 setIsLoading(false)
             } else {
-                console.error("Error fetching user data");
                 setIsLoading(false)
             }
         } catch (error) {
-            console.error("Error fetching user data.");
         }
     }
 

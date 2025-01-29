@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { toast } from "react-toastify";
-import { useCart } from "../store/AddToCartContext"; // Import the useCart hook
+import { useCart } from "../store/AddToCartContext";
 import { useAuth } from "../store/Auth"
 
 const Payment = () => {
@@ -14,7 +14,7 @@ const Payment = () => {
     const stripe = useStripe();
     const elements = useElements();
     const navigate = useNavigate();
-    const { clearCart } = useCart(); // Use the clearCart function from context
+    const { clearCart } = useCart();
 
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
@@ -32,7 +32,6 @@ const Payment = () => {
             return;
         }
 
-        // Get the CardElement
         const cardElement = elements.getElement(CardElement);
         if (!cardElement) {
             setMessage("Card details are not entered. Please try again.");
@@ -81,12 +80,11 @@ const Payment = () => {
                 setMessage("Payment successful! 🎉");
                 setPaymentSuccess(true);
                 toast.success("Order placed successfully! 🎉");
-                clearCart(); // Clear the cart
+                clearCart();
             } else {
                 throw new Error("Payment failed. Please try again.");
             }
         } catch (error) {
-            console.error("Payment Error:", error);
             setMessage(error.message || "Something went wrong. Please try again.");
             toast.error(error.message || "Payment failed. Please try again!");
         }
@@ -104,7 +102,6 @@ const Payment = () => {
                 Complete Your Payment
             </h1>
 
-            {/* Order Summary */}
             <div className="mb-6 bg-white shadow rounded-lg p-4">
                 <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-4">Order Summary</h2>
                 {cart.map((product) => (
@@ -124,7 +121,6 @@ const Payment = () => {
                 </div>
             </div>
 
-            {/* Payment Form */}
             {!paymentSuccess ? (
                 <form
                     onSubmit={handlePayment}

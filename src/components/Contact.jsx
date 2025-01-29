@@ -33,7 +33,6 @@ const Contact = () => {
             if (response.ok) {
                 setFormData(formData);
                 const data = await response.json();
-                console.log(data);
                 toast.success("Form submitted successfully.");
             }
 
@@ -44,7 +43,6 @@ const Contact = () => {
             })
         } catch (error) {
             toast.error("Form not submitted.");
-            console.log(error);
             setFormData({
                 name: "",
                 email: "",

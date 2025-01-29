@@ -31,7 +31,6 @@ const Shop = () => {
             }
         } catch (err) {
             setError("An error occurred while fetching products.");
-            console.error(err);
         } finally {
             setLoading(false);
         }

@@ -17,11 +17,9 @@ const Login = () => {
       if (user) {
         const uid = user.uid;
         localStorage.setItem('uid', uid);
-        storeTokenInLs(uid); // Update the token in Auth context
-        console.log("User is signed in:", uid);
+        storeTokenInLs(uid);
       } else {
         localStorage.removeItem('uid');
-        console.log("User is signed out");
       }
     });
 
@@ -60,8 +58,6 @@ const Login = () => {
         body: JSON.stringify(user),
       });
 
-      console.log("Login form", response);
-
       const res_data = await response.json()
 
       if (response.ok) {
@@ -73,10 +69,8 @@ const Login = () => {
         toast.error(
           res_data.extraDetails ? res_data.extraDetails : res_data.message
         )
-        console.log("Invalid Credentials");
       }
     } catch (error) {
-      console.error(error);
       toast.error("Something went wrong. Please try again.");
     }
     setLoading(false);
@@ -92,11 +86,9 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      console.log("User Info:", user);
       toast.success(`Welcome, ${user.displayName}!`);
       navigate("/");
     } catch (error) {
-      console.error("Error during Google Sign-In:", error);
       toast.error("Sign-In failed. Please try again.");
     }
   };

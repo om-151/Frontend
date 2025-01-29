@@ -4,17 +4,14 @@ const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
     const [cart, setCart] = useState(() => {
-        // Initialize cart from localStorage
         const storedCart = localStorage.getItem("cart");
         return storedCart ? JSON.parse(storedCart) : [];
     });
 
     useEffect(() => {
-        // Update localStorage whenever the cart changes
         localStorage.setItem("cart", JSON.stringify(cart));
     }, [cart]);
 
-    // Add a product to the cart
     const addToCart = (product) => {
         setCart((prevCart) => {
             const existing = prevCart.find((item) => item._id === product._id);
@@ -31,7 +28,6 @@ export const CartProvider = ({ children }) => {
 
     const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
 
-    // Update the quantity of an item in the cart
     const updateQuantity = (productId, quantity) => {
         setCart((prevCart) =>
             prevCart.map((item) =>
@@ -40,15 +36,13 @@ export const CartProvider = ({ children }) => {
         );
     };
 
-    // Remove an item from the cart
     const removeFromCart = (productId) => {
         setCart((prevCart) => prevCart.filter((item) => item._id !== productId));
     };
 
-    // Clear all items from the cart
     const clearCart = () => {
-        setCart([]); // Empty the cart
-        localStorage.removeItem("cart"); // Remove cart from localStorage
+        setCart([]);
+        localStorage.removeItem("cart");
     };
 
     return (
@@ -58,7 +52,7 @@ export const CartProvider = ({ children }) => {
                 addToCart,
                 updateQuantity,
                 removeFromCart,
-                clearCart, // Provide clearCart function
+                clearCart,
                 cartItemCount,
             }}
         >
@@ -67,5 +61,4 @@ export const CartProvider = ({ children }) => {
     );
 };
 
-// Custom hook to use the cart context
 export const useCart = () => useContext(CartContext);

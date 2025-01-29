@@ -20,7 +20,7 @@ function UserAddress() {
         city: "",
     });
 
-    const [errors, setErrors] = useState({}); // To store field-specific error messages
+    const [errors, setErrors] = useState({});
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -45,12 +45,11 @@ function UserAddress() {
         if (!formData.state.trim()) newErrors.state = "State is required.";
 
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0; // Returns true if no errors
+        return Object.keys(newErrors).length === 0;
     };
 
     const handleProceedToPay = () => {
         if (validateForm()) {
-            console.log("Form Data Submitted: ", formData);
             navigate("/payment", { state: { cart, total, formData } });
         }
     };

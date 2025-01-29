@@ -32,7 +32,6 @@ const FilterPanel = ({ onApplyFilters, onSearch }) => {
 
     return (
         <>
-            {/* Toggle Button for Mobile */}
             <button
                 className="md:hidden fixed top-16 right-4 z-50 bg-blue-500 text-white p-3 rounded-full shadow-lg transition-transform hover:scale-105"
                 onClick={() => setIsMobileFilterOpen((prev) => !prev)}
@@ -70,7 +69,6 @@ const FilterPanel = ({ onApplyFilters, onSearch }) => {
                 )}
             </button>
 
-            {/* Mobile Filter Panel */}
             <div
                 className={`fixed inset-0 z-40 bg-white p-6 shadow-lg transform ${isMobileFilterOpen
                     ? "translate-x-0 opacity-100"
@@ -128,7 +126,6 @@ const FilterPanel = ({ onApplyFilters, onSearch }) => {
                 </button>
             </div>
 
-            {/* Desktop Filter Panel */}
             <div className="hidden md:block w-1/4 bg-gray-50 p-4 shadow-lg">
                 <p className="text-2xl text-emerald-500 text-center font-bold mb-5">Filter</p>
 

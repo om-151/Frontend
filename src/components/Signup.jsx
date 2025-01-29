@@ -47,14 +47,13 @@ const Signup = () => {
 
       if (response.ok) {
         const data = await response.json();
-        storeTokenInLs(data.token); // Update the token in Auth context
+        storeTokenInLs(data.token);
         toast.success("Registration Successful")
-        navigate("/"); // Redirect to home or another page
+        navigate("/");
       } else {
         toast.error("Signup failed. Please try again.");
       }
     } catch (error) {
-      console.error("Error during signup:", error);
       toast.error("Signup failed. Please try again.");
     }
     setLoading(false);
@@ -70,12 +69,10 @@ const Signup = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      console.log("User Info:", user);
       alert(`Welcome, ${user.displayName}!`);
       toast.success("Registration Successful")
       navigate("/")
     } catch (error) {
-      console.error("Error during Google Sign-In:", error);
       alert("Sign-In failed. Please try again.");
     }
   };

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useCart } from "../store/AddToCartContext";
 import FilterPanel from "./FilterPanel";
 import ProductCard from "./ProductCard";
-import { useAuth } from "../store/Auth"
+import { useAuth } from "../store/Auth";
+import Loader from "../assets/Loader.gif";
 
 const Shop = () => {
     const [allProducts, setAllProducts] = useState([]);
@@ -76,7 +77,14 @@ const Shop = () => {
         }
     };
 
-    if (loading) return <p className="text-center text-3xl min-h-screen font-bold">Loading products...</p>;
+    if (loading) {
+        return <>
+            <div className="flex flex-col items-center justify-center min-h-screen">
+                <img src={Loader} alt="Loader" height={300} width={300}/>
+                <p className="text-3xl font-bold my-10">Loading products...</p>;
+            </div>
+        </>
+    }
     if (error) return <p className="text-center text-red-500 text-3xl min-h-screen font-bold">{error}</p>;
 
     return (

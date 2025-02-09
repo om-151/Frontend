@@ -86,9 +86,21 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      toast.success(`Welcome, ${user.displayName}!`);
+
+      await fetch(`${API}/api/auth/google-welcome-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: user.displayName,
+          email: user.email,
+        }),
+      });
+      toast.success("Registration Successful");
       navigate("/");
     } catch (error) {
+      console.error("Google Sign-In Error:", error);
       toast.error("Sign-In failed. Please try again.");
     }
   };

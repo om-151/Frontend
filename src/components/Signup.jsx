@@ -34,7 +34,7 @@ const Signup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
 
     try {
       const response = await fetch(`${API}/api/auth/register`, {
@@ -45,19 +45,25 @@ const Signup = () => {
         body: JSON.stringify(user),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        const data = await response.json();
         storeTokenInLs(data.token);
-        toast.success("Registration Successful")
-        navigate("/");
+        toast.success("Registration Successful. Check your email for confirmation.");
+
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       } else {
-        toast.error("Signup failed. Please try again.");
+        toast.error(data.message || "Signup failed. Please try again.");
       }
     } catch (error) {
+      console.error("Signup Error:", error);
       toast.error("Signup failed. Please try again.");
     }
+
     setLoading(false);
-  }
+  };
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -69,11 +75,22 @@ const Signup = () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
-      alert(`Welcome, ${user.displayName}!`);
-      toast.success("Registration Successful")
-      navigate("/")
+
+      await fetch(`${API}/api/auth/google-welcome-email`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: user.displayName,
+          email: user.email,
+        }),
+      });
+      toast.success("Registration Successful");
+      navigate("/");
     } catch (error) {
-      alert("Sign-In failed. Please try again.");
+      console.error("Google Sign-In Error:", error);
+      toast.error("Sign-In failed. Please try again.");
     }
   };
 

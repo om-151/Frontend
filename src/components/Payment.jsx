@@ -21,156 +21,11 @@ const Payment = () => {
     const [paymentSuccess, setPaymentSuccess] = useState(false);
     const { API } = useAuth()
 
-    // const handlePayment = async (event) => {
-    //     event.preventDefault();
-    //     setLoading(true);
-    //     setMessage("");
-
-    //     if (!stripe || !elements) {
-    //         setMessage("Stripe is not fully loaded yet. Please try again.");
-    //         setLoading(false);
-    //         return;
-    //     }
-
-    //     const cardElement = elements.getElement(CardElement);
-    //     if (!cardElement) {
-    //         setMessage("Card details are not entered. Please try again.");
-    //         setLoading(false);
-    //         return;
-    //     }
-
-    //     try {
-    //         const response = await fetch(`${API}/api/stripe/payment`, {
-    //             method: "POST",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify({ amount: total * 100, currency: "inr" }),
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error("Failed to create payment intent. Please check the server.");
-    //         }
-
-    //         const { clientSecret } = await response.json();
-    //         if (!clientSecret) {
-    //             throw new Error("Payment Intent creation failed. Try again later.");
-    //         }
-
-    //         const result = await stripe.confirmCardPayment(clientSecret, {
-    //             payment_method: {
-    //                 card: cardElement,
-    //                 billing_details: {
-    //                     name: formData.fullName,
-    //                     email: formData.email,
-    //                     address: {
-    //                         line1: formData.address,
-    //                         postal_code: formData.pincode,
-    //                         city: formData.city,
-    //                         state: formData.state,
-    //                         country: "IN",
-    //                     },
-    //                 },
-    //             },
-    //         });
-
-    //         if (result.error) {
-    //             throw new Error(result.error.message);
-    //         }
-
-    //         if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
-    //             setMessage("Payment successful! 🎉");
-    //             setPaymentSuccess(true);
-    //             toast.success("Order placed successfully! 🎉");
-    //             clearCart();
-    //         } else {
-    //             throw new Error("Payment failed. Please try again.");
-    //         }
-    //     } catch (error) {
-    //         setMessage(error.message || "Something went wrong. Please try again.");
-    //         toast.error(error.message || "Payment failed. Please try again!");
-    //     }
-
-    //     setLoading(false);
-    // };
-
-    // const handlePayment = async (event) => {
-    //     event.preventDefault();
-
-    //     if (loading) return; // Prevent multiple calls
-
-    //     setLoading(true);
-    //     setMessage("");
-
-    //     if (!stripe || !elements) {
-    //         setMessage("Stripe is not fully loaded yet. Please try again.");
-    //         setLoading(false);
-    //         return;
-    //     }
-
-    //     const cardElement = elements.getElement(CardElement);
-    //     if (!cardElement) {
-    //         setMessage("Card details are not entered. Please try again.");
-    //         setLoading(false);
-    //         return;
-    //     }
-
-    //     try {
-    //         // Fetch client secret from the server
-    //         const response = await fetch(`${API}/api/stripe/payment`, {
-    //             method: "POST",
-    //             headers: { "Content-Type": "application/json" },
-    //             body: JSON.stringify({ amount: total * 100, currency: "inr" }),
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error("Failed to create payment intent. Please check the server.");
-    //         }
-
-    //         const { clientSecret } = await response.json();
-    //         if (!clientSecret) {
-    //             throw new Error("Payment Intent creation failed. Try again later.");
-    //         }
-
-    //         // Perform payment confirmation
-    //         const result = await stripe.confirmCardPayment(clientSecret, {
-    //             payment_method: {
-    //                 card: cardElement,
-    //                 billing_details: {
-    //                     name: formData.fullName,
-    //                     email: formData.email,
-    //                     address: {
-    //                         line1: formData.address,
-    //                         postal_code: formData.pincode,
-    //                         city: formData.city,
-    //                         state: formData.state,
-    //                         country: "IN",
-    //                     },
-    //                 },
-    //             },
-    //         });
-
-    //         if (result.error) {
-    //             throw new Error(result.error.message);
-    //         }
-
-    //         if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
-    //             setMessage("Payment successful! 🎉");
-    //             setPaymentSuccess(true);
-    //             toast.success("Order placed successfully! 🎉");
-    //             clearCart();
-    //         } else {
-    //             throw new Error("Payment failed. Please try again.");
-    //         }
-    //     } catch (error) {
-    //         setMessage(error.message || "Something went wrong. Please try again.");
-    //         toast.error(error.message || "Payment failed. Please try again!");
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-
     const handlePayment = async (event) => {
         event.preventDefault();
-        if (loading) return; // Prevent duplicate clicks
+
+        if (loading) return;
+
         setLoading(true);
         setMessage("");
 
@@ -188,27 +43,21 @@ const Payment = () => {
         }
 
         try {
-            console.log("Initiating payment request...");
             const response = await fetch(`${API}/api/stripe/payment`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ amount: total * 100, currency: "inr" }),
             });
 
-            console.log("Response received:", response);
             if (!response.ok) {
-                throw new Error("Failed to create payment intent. Server issue.");
+                throw new Error("Failed to create payment intent. Please check the server.");
             }
 
-            const data = await response.json();
-            console.log("Payment Intent Data:", data);
-
-            const clientSecret = data.clientSecret;
+            const { clientSecret } = await response.json();
             if (!clientSecret) {
                 throw new Error("Payment Intent creation failed. Try again later.");
             }
 
-            console.log("Confirming payment...");
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: cardElement,
@@ -224,12 +73,8 @@ const Payment = () => {
                         },
                     },
                 },
-            }).catch(err => {
-                console.error("Payment Error:", err);
-                throw new Error("Payment confirmation failed.");
             });
 
-            console.log("Payment Result:", result);
             if (result.error) {
                 throw new Error(result.error.message);
             }
@@ -243,14 +88,12 @@ const Payment = () => {
                 throw new Error("Payment failed. Please try again.");
             }
         } catch (error) {
-            console.error("Error:", error);
             setMessage(error.message || "Something went wrong. Please try again.");
             toast.error(error.message || "Payment failed. Please try again!");
         } finally {
             setLoading(false);
         }
     };
-
 
     if (!cart.length) {
         return <p className="text-center text-gray-700">No products in the cart. Please return to the cart page.</p>;

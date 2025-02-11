@@ -21,8 +21,82 @@ const Payment = () => {
     const [paymentSuccess, setPaymentSuccess] = useState(false);
     const { API } = useAuth()
 
+    // const handlePayment = async (event) => {
+    //     event.preventDefault();
+    //     setLoading(true);
+    //     setMessage("");
+
+    //     if (!stripe || !elements) {
+    //         setMessage("Stripe is not fully loaded yet. Please try again.");
+    //         setLoading(false);
+    //         return;
+    //     }
+
+    //     const cardElement = elements.getElement(CardElement);
+    //     if (!cardElement) {
+    //         setMessage("Card details are not entered. Please try again.");
+    //         setLoading(false);
+    //         return;
+    //     }
+
+    //     try {
+    //         const response = await fetch(`${API}/api/stripe/payment`, {
+    //             method: "POST",
+    //             headers: { "Content-Type": "application/json" },
+    //             body: JSON.stringify({ amount: total * 100, currency: "inr" }),
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error("Failed to create payment intent. Please check the server.");
+    //         }
+
+    //         const { clientSecret } = await response.json();
+    //         if (!clientSecret) {
+    //             throw new Error("Payment Intent creation failed. Try again later.");
+    //         }
+
+    //         const result = await stripe.confirmCardPayment(clientSecret, {
+    //             payment_method: {
+    //                 card: cardElement,
+    //                 billing_details: {
+    //                     name: formData.fullName,
+    //                     email: formData.email,
+    //                     address: {
+    //                         line1: formData.address,
+    //                         postal_code: formData.pincode,
+    //                         city: formData.city,
+    //                         state: formData.state,
+    //                         country: "IN",
+    //                     },
+    //                 },
+    //             },
+    //         });
+
+    //         if (result.error) {
+    //             throw new Error(result.error.message);
+    //         }
+
+    //         if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
+    //             setMessage("Payment successful! 🎉");
+    //             setPaymentSuccess(true);
+    //             toast.success("Order placed successfully! 🎉");
+    //             clearCart();
+    //         } else {
+    //             throw new Error("Payment failed. Please try again.");
+    //         }
+    //     } catch (error) {
+    //         setMessage(error.message || "Something went wrong. Please try again.");
+    //         toast.error(error.message || "Payment failed. Please try again!");
+    //     }
+
+    //     setLoading(false);
+    // };
+
     const handlePayment = async (event) => {
         event.preventDefault();
+
+        if (loading) return; // Prevent multiple calls
+
         setLoading(true);
         setMessage("");
 
@@ -40,6 +114,7 @@ const Payment = () => {
         }
 
         try {
+            // Fetch client secret from the server
             const response = await fetch(`${API}/api/stripe/payment`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -55,6 +130,7 @@ const Payment = () => {
                 throw new Error("Payment Intent creation failed. Try again later.");
             }
 
+            // Perform payment confirmation
             const result = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: {
                     card: cardElement,
@@ -87,9 +163,9 @@ const Payment = () => {
         } catch (error) {
             setMessage(error.message || "Something went wrong. Please try again.");
             toast.error(error.message || "Payment failed. Please try again!");
+        } finally {
+            setLoading(false);
         }
-
-        setLoading(false);
     };
 
     if (!cart.length) {
@@ -147,11 +223,12 @@ const Payment = () => {
 
                     <button
                         type="submit"
-                        disabled={!stripe || loading}
-                        className="w-full px-6 py-3 bg-emerald-600 text-white font-bold rounded-lg shadow-md hover:bg-emerald-700 transition text-sm md:text-base"
+                        disabled={loading || !stripe}
+                        className={`w-full px-6 py-3 font-bold rounded-lg shadow-md transition text-sm md:text-base ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-700 text-white"}`}
                     >
                         {loading ? "Processing..." : `Pay ₹${total.toFixed(2)}`}
                     </button>
+
                 </form>
             ) : (
                 <div className="text-center space-y-4">

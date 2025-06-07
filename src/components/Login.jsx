@@ -215,7 +215,7 @@ const Login = () => {
             <p className="text-fuchsia-600">or</p>
             <button className="w-full mt-2 flex items-center justify-center bg-white border border-gray-300 py-2 text-fuchsia-600 rounded-md shadow hover:bg-gray-100 transition" onClick={handleGoogleSignIn}>
               <img
-                src="https://shorturl.at/iC0A1"
+                src="https://res.cloudinary.com/df8whf5u8/image/upload/v1749269258/google_logo_ndswuk.jpg"
                 alt="Google Logo"
                 className="h-5 w-5 mr-2 rounded-full"
               />

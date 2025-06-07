@@ -55,7 +55,7 @@ const Contact = () => {
     return (
         <div
             className="min-h-screen flex items-center justify-center p-6 bg-cover bg-center"
-            style={{ backgroundImage: "url('https://shorturl.at/djJz2')" }}
+            style={{ backgroundImage: "url('https://res.cloudinary.com/df8whf5u8/image/upload/v1737741633/babu_u5luix.jpg')" }}
         >
             <div className="w-full max-w-2xl bg-white/70 backdrop-blur-md rounded-lg shadow-xl p-8 transition-transform transform duration-300">
                 <h2 className="text-2xl font-bold text-blue-700 mb-4">Contact Us</h2>

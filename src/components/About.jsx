@@ -21,7 +21,7 @@ const About = () => {
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-10">
                         <div className="flex flex-col justify-center items-center text-center p-10 bg-white text-gray-800 shadow-xl rounded-lg transform transition-all hover:scale-105 hover:shadow-2xl duration-300 ease-in-out animate__animated animate__fadeIn animate__delay-2s">
-                            <img className="w-40 h-40 object-cover rounded-full mb-6 shadow-md" src="https://shorturl.at/bLHDx" alt="Founder" />
+                            <img className="w-40 h-40 object-cover rounded-full mb-6 shadow-md" src="https://res.cloudinary.com/df8whf5u8/image/upload/v1737732889/Founder_ms5u7d.jpg" alt="Founder" />
                             <h3 className="text-2xl font-semibold text-blue-500">Humayoo Founder</h3>
                             <p className="mt-4 text-blue-400 text-lg">
                                 Prakash patel, an industry veteran with 15+ years of experience in the tech world, founded our company in 2010.
@@ -29,7 +29,7 @@ const About = () => {
                         </div>
 
                         <div className="flex flex-col justify-center items-center text-center p-10 bg-white text-gray-800 shadow-xl rounded-lg transform transition-all hover:scale-105 hover:shadow-2xl duration-300 ease-in-out animate__animated animate__fadeIn animate__delay-3s">
-                            <img className="w-40 h-40 object-cover rounded-full mb-6 shadow-md" src="https://shorturl.at/YCLk7" alt="Team" />
+                            <img className="w-40 h-40 object-cover rounded-full mb-6 shadow-md" src="https://res.cloudinary.com/df8whf5u8/image/upload/v1737733110/portrait-business-people-conference-room_1_stsgmv.jpg" alt="Team" />
                             <h3 className="text-2xl text-blue-500 font-semibold">Humayoo Team</h3>
                             <p className="mt-4 text-blue-400 text-lg">
                                 Our team consists of passionate individuals who work together to deliver excellent solutions to our customers.
@@ -50,7 +50,7 @@ const About = () => {
                     <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-12">
                         <div className="text-center p-8 bg-white shadow-xl rounded-lg hover:shadow-2xl transform transition-all hover:scale-105 duration-300 ease-in-out">
                             <div className="flex flex-col items-center">
-                                <img className="w-20 h-20 object-cover rounded-full mb-6 shadow-md" src="https://shorturl.at/YBE2I" alt="Team" />
+                                <img className="w-20 h-20 object-cover rounded-full mb-6 shadow-md" src="https://res.cloudinary.com/df8whf5u8/image/upload/v1737733934/standard-quality-control-collage-concept_1_zs29jb.jpg" alt="Team" />
                             </div>
                             <h3 className="text-2xl font-semibold text-blue-500">Quality Assurance</h3>
                             <p className="mt-4 text-blue-400">
@@ -60,7 +60,7 @@ const About = () => {
 
                         <div className="text-center p-8 bg-white shadow-xl rounded-lg hover:shadow-2xl transform transition-all hover:scale-105 duration-300 ease-in-out">
                             <div className="flex flex-col items-center">
-                                <img className="w-20 h-20 object-cover rounded-full mb-6 shadow-md" src="https://shorturl.at/HHwJD" alt="Team" />
+                                <img className="w-20 h-20 object-cover rounded-full mb-6 shadow-md" src="https://res.cloudinary.com/df8whf5u8/image/upload/v1737734092/delivery-service-design_24908-8638_gv4jel.jpg" alt="Team" />
                             </div>
                             <h3 className="text-2xl font-semibold text-blue-500">Fast Shipping</h3>
                             <p className="mt-4 text-blue-400">
@@ -70,7 +70,7 @@ const About = () => {
 
                         <div className="text-center p-8 bg-white shadow-xl rounded-lg hover:shadow-2xl transform transition-all hover:scale-105 duration-300 ease-in-out">
                             <div className="flex flex-col items-center">
-                                <img className="w-20 h-20 object-cover rounded-full mb-6 shadow-md" src="https://shorturl.at/tA3az" alt="Team" />
+                                <img className="w-20 h-20 object-cover rounded-full mb-6 shadow-md" src="https://res.cloudinary.com/df8whf5u8/image/upload/v1737734251/busy-woman-doing-many-things-same-time_o4iqxx.jpg" alt="Team" />
                             </div>
                             <h3 className="text-2xl font-semibold text-blue-500">Customer Support</h3>
                             <p className="mt-4 text-blue-400">

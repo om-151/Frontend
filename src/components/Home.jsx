@@ -69,7 +69,7 @@ const Home = () => {
             description: "Very easy to manage inventory in shop",
         },
         {
-            image: "https://res.cloudinary.com/df8whf5u8/image/upload/v1737741633/babu_u5luix.jpg",
+            image: "https://res.cloudinary.com/df8whf5u8/image/upload/v1749267197/cyber-monday-shopping-sales_mjuo7y.jpg",
             title: "Open your account now",
             description: "Open your account now and get 50% off",
         },

@@ -23,6 +23,9 @@ const Payment = () => {
 
     const handlePayment = async (event) => {
         event.preventDefault();
+
+        if (loading) return;
+
         setLoading(true);
         setMessage("");
 
@@ -87,9 +90,9 @@ const Payment = () => {
         } catch (error) {
             setMessage(error.message || "Something went wrong. Please try again.");
             toast.error(error.message || "Payment failed. Please try again!");
+        } finally {
+            setLoading(false);
         }
-
-        setLoading(false);
     };
 
     if (!cart.length) {
@@ -147,11 +150,12 @@ const Payment = () => {
 
                     <button
                         type="submit"
-                        disabled={!stripe || loading}
-                        className="w-full px-6 py-3 bg-emerald-600 text-white font-bold rounded-lg shadow-md hover:bg-emerald-700 transition text-sm md:text-base"
+                        disabled={loading || !stripe}
+                        className={`w-full px-6 py-3 font-bold rounded-lg shadow-md transition text-sm md:text-base ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-emerald-600 hover:bg-emerald-700 text-white"}`}
                     >
                         {loading ? "Processing..." : `Pay ₹${total.toFixed(2)}`}
                     </button>
+
                 </form>
             ) : (
                 <div className="text-center space-y-4">
